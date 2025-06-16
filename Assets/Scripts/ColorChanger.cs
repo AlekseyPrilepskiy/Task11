@@ -5,15 +5,18 @@ using UnityEngine;
 public class ColorChanger : MonoBehaviour
 {
     private CubeBehavior _cube;
+    private Renderer _renderer;
 
     private void Awake()
     {
         _cube = GetComponent<CubeBehavior>();
+        _renderer = GetComponent<Renderer>();
     }
 
     private void OnEnable()
     {
         _cube.TouchWithPlatform += Change;
+        _renderer.material.color = Color.white;
     }
 
     private void OnDisable()
@@ -23,6 +26,6 @@ public class ColorChanger : MonoBehaviour
 
     private void Change(CubeBehavior cube)
     {
-        cube.Renderer.material.color = new Color(Random.value, Random.value, Random.value);
+        _renderer.material.color = new Color(Random.value, Random.value, Random.value);
     }
 }
