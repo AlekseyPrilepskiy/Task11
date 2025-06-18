@@ -3,13 +3,15 @@ using UnityEngine;
 
 public class CubeBehavior : MonoBehaviour
 {
+    private Rigidbody _rigidbody;
+
     private bool _isTouched;
 
-    public event Action<CubeBehavior> TouchWithPlatform;
+    public event Action<CubeBehavior> TouchedWithPlatform;
 
-    private void OnEnable()
+    private void Start()
     {
-        _isTouched = false;
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -17,7 +19,15 @@ public class CubeBehavior : MonoBehaviour
         if (_isTouched == false && collision.gameObject.TryGetComponent<Platform>(out _))
         {
             _isTouched = true;
-            TouchWithPlatform?.Invoke(this);
+            TouchedWithPlatform?.Invoke(this);
         }
+    }
+
+    public void ResetCharacteristic()
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        _isTouched = false;
     }
 }

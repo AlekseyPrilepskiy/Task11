@@ -15,13 +15,13 @@ public class ColorChanger : MonoBehaviour
 
     private void OnEnable()
     {
-        _cube.TouchWithPlatform += Change;
+        _cube.TouchedWithPlatform += Change;
         _renderer.material.color = Color.white;
     }
 
     private void OnDisable()
     {
-        _cube.TouchWithPlatform -= Change;
+        _cube.TouchedWithPlatform -= Change;
     }
 
     private void Change(CubeBehavior cube)
